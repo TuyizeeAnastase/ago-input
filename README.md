@@ -8,8 +8,7 @@
 ![Screenshot from 2024-06-02 10-19-59](https://github.com/TuyizeeAnastase/ago-input/assets/42033331/29d066d6-4900-409d-bcf4-98357706baba)
 
 # list of orders
-![Screenshot from 2024-06-02 10-20-14](https://github.com/TuyizeeAnastase/ago-input/assets/42033331/76caf18f-bf39-489c-8cf1-12de3fc530b4)
-
+![Screenshot from 2024-06-02 10-45-00](https://github.com/TuyizeeAnastase/ago-input/assets/42033331/00dc93ea-7b8f-496f-9d53-a61cd5567673)
 
 
 # request order
