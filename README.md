@@ -61,6 +61,10 @@ $ run ago-input-store backend by cloning repo https://github.com/TuyizeeAnastase
 $ npm run start
 ```
 
+### Run project remotelly
+
+## Deployment in process ...
+
 <br>
 
 ## Author
