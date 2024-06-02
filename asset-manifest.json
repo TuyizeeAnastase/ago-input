@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ago-input.git/static/css/main.b301de66.css",
+    "main.js": "/ago-input.git/static/js/main.92e34a59.js",
+    "index.html": "/ago-input.git/index.html",
+    "main.b301de66.css.map": "/ago-input.git/static/css/main.b301de66.css.map",
+    "main.92e34a59.js.map": "/ago-input.git/static/js/main.92e34a59.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b301de66.css",
+    "static/js/main.92e34a59.js"
+  ]
+}
