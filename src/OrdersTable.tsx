@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { useTable, usePagination } from 'react-table';
 import ReactPaginate from 'react-paginate';
-import './App.css'
-import './css/OrderTable.css'
+import './App.css';
+import './css/OrderTable.css';
 
 interface User {
     id: number;
@@ -32,13 +32,14 @@ interface Order {
     user: User;
     seed: Seed;
     fertilizer: Fertilizer;
+    status: string;
 }
 
 const OrdersTable: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [pageCount, setPageCount] = useState(0);
     const [page, setPage] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(5);
 
     useEffect(() => {
         console.log('Fetching orders for page:', page, 'with pageSize:', pageSize);
@@ -73,7 +74,30 @@ const OrdersTable: React.FC = () => {
         setPage(data.selected);
     };
 
-    const columns = React.useMemo(
+    const updateOrderStatus = useCallback(async (orderId: number, status: string) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No token found');
+        }
+        console.log(orderId, status, token);
+        try {
+            const response = await axios.put(`http://localhost:4000/api/orders/${orderId}/approve`, 
+                { status },
+                {
+                    headers: {
+                        authorization: token,
+                    }
+                }
+            );
+            if (response.status === 200) {
+                fetchOrders(page, pageSize);
+            }
+        } catch (error) {
+            console.error(`Error updating order status to ${status}:`, error);
+        }
+    }, [page, pageSize]);
+
+    const columns = useMemo(
         () => [
             {
                 Header: 'ID',
@@ -99,8 +123,23 @@ const OrdersTable: React.FC = () => {
                 Header: 'Fertilizer Quantity',
                 accessor: 'quantity_fertilizer',
             },
+            {
+                Header: 'Status',
+                accessor: 'status',
+                Cell: ({ row }: { row: { original: Order } }) => (
+                    <div>
+                        <span>{row.original.status}</span>
+                        {row.original.status === 'pending' && (
+                            <div>
+                                <button onClick={() => updateOrderStatus(row.original.id, 'approved')}>Approve</button>
+                                <button onClick={() => updateOrderStatus(row.original.id, 'rejected')}>Reject</button>
+                            </div>
+                        )}
+                    </div>
+                )
+            },
         ],
-        []
+        [updateOrderStatus]
     );
 
     const {
